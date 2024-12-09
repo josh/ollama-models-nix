@@ -1,5 +1,5 @@
 let
-  pkgs = import <nixpkgs> {};
+  pkgs = import <nixpkgs> { };
 
   writeShellApplication = pkgs.writeShellApplication;
   curl = pkgs.curl;
