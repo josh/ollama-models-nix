@@ -26,6 +26,7 @@ jobs:
         if: ${{ github.event.inputs.model != '' && github.event.inputs.tag != '' }}
         run: |
           mkdir -p "manifests/registry.ollama.ai/library/$OLLAMA_MODEL"
+          touch "manifests/registry.ollama.ai/library/$OLLAMA_MODEL/latest"
           touch "manifests/registry.ollama.ai/library/$OLLAMA_MODEL/$OLLAMA_TAG"
         env:
           OLLAMA_MODEL: ${{ github.event.inputs.model }}
