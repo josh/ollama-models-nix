@@ -1,35 +1,35 @@
 {
-  lib,
   writeShellApplication,
   curl,
 }:
-let
-  registry = "registry.ollama.ai";
-  models = builtins.fromJSON (builtins.readFile ./manifests/models.json);
-
-  fetchManifestCommand = name: tag: ''
-    curl --fail \
-      --location \
-      --show-error \
-      --silent \
-      --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
-      "https://${registry}/v2/library/${name}/manifests/${tag}" \
-      --create-dirs \
-      --output "./manifests/${registry}/library/${name}/${tag}"
-  '';
-
-  cmds = lib.lists.flatten (
-    lib.attrsets.mapAttrsToList (
-      name: tags: builtins.map (tag: fetchManifestCommand name tag) ([ "latest" ] ++ tags)
-    ) models
-  );
-in
 writeShellApplication {
   name = "update-manifests";
   runtimeInputs = [ curl ];
-  text =
-    ''
-      set -o xtrace
-    ''
-    + (builtins.concatStringsSep "\n" cmds);
+  runtimeEnv = {
+    OLLAMA_REGISTRY = "registry.ollama.ai";
+  };
+  text = ''
+    pull() {
+      local model=$1
+      local tag=$2
+      local output=$3
+      echo "+ pull $model:$tag"
+      curl --fail \
+        --location \
+        --show-error \
+        --silent \
+        --header "Accept: application/vnd.docker.distribution.manifest.v2+json" \
+        "https://$OLLAMA_REGISTRY/v2/library/$model/manifests/$tag" \
+        --create-dirs \
+        --output "$output"
+    }
+
+    for model_path in "./manifests/$OLLAMA_REGISTRY/library/"*; do
+      model=$(basename "$model_path")
+      for tag_path in "$model_path"/*; do
+        tag=$(basename "$tag_path")
+        pull "$model" "$tag" "$tag_path"
+      done
+    done
+  '';
 }
