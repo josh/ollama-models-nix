@@ -15,7 +15,7 @@ models() {
 tags() {
 	echo "latest"
 	echo "$HTML" |
-		htmlq "a[href=\"/library/$1\"] > div:nth-child(2) > div:nth-child(1) > span" --text
+		htmlq "a[href=\"/library/$1\"] > div:nth-child(2) > div:nth-child(1) > span.text-blue-600" --text
 }
 
 for model in $(models); do
