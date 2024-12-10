@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: "0 19 * * *"
   workflow_dispatch:
+    inputs:
+      model:
+        description: "Model"
+        required: false
+      tag:
+        description: "Tag"
+        required: false
 
 permissions:
   contents: write
@@ -14,6 +21,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Add new manifest
+        if: ${{ github.event.inputs.model != '' && github.event.inputs.tag != '' }}
+        run: |
+          mkdir -p "manifests/registry.ollama.ai/library/${github.event.inputs.model}"
+          touch "manifests/registry.ollama.ai/library/${github.event.inputs.model}/${github.event.inputs.tag}"
 
       - name: Update manifests
         run: ./update-manifests.bash
