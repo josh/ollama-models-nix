@@ -24,12 +24,15 @@
           pkgs = nixpkgs.legacyPackages.${system};
           callPackage = pkgs.callPackage;
         in
-        lib.attrsets.mapAttrs' (model: tags: {
+        (lib.attrsets.mapAttrs' (model: tags: {
           name = lib.strings.replaceStrings [ "." ] [ "_" ] model;
           value = callPackage ./model-collection.nix {
             inherit model tags;
           };
-        }) models
+        }) models)
+        // {
+          update-manifests = callPackage ./update.nix { };
+        }
       );
     };
 }
