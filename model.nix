@@ -23,7 +23,7 @@ let
       sha256 = sha256;
     };
 
-  linkBlobs =
+  linkblobs =
     blobs:
     builtins.map (
       blob:
@@ -34,14 +34,20 @@ let
       ''ln -s ${file} $out/blobs/${file.meta.name}''
     ) blobs;
 
-  blobs = linkBlobs ([ manifest.config ] ++ manifest.layers);
+  blobs = linkblobs ([ manifest.config ] ++ manifest.layers);
 in
 
-runCommand "ollama-model-${model}-${tag}" { } ''
-  mkdir -p $out/manifests/${registry}/library/${model} $out/blobs
-  cp ${manifestPath} $out/manifests/${registry}/library/${model}/${tag}
-  ${builtins.concatStringsSep "\n" blobs}
-''
-
-# TODO: Set safe pname metadata
-# Set version metadata
+runCommand "ollama-model-${model}-${tag}"
+  {
+    meta = {
+      model = model;
+      tag = tag;
+      homepage = "https://ollama.com/library/${model}:${tag}";
+      platforms = lib.platforms.all;
+    };
+  }
+  ''
+    mkdir -p $out/manifests/${registry}/library/${model} $out/blobs
+    cp ${manifestPath} $out/manifests/${registry}/library/${model}/${tag}
+    ${builtins.concatStringsSep "\n" blobs}
+  ''
