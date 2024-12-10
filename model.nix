@@ -1,6 +1,5 @@
 {
   lib,
-  callPackage,
   fetchurl,
   runCommand,
   registry ? "registry.ollama.ai",
@@ -20,7 +19,7 @@ let
         "--header"
         "Accept: application/vnd.docker.distribution.manifest.v2+json"
       ];
-      sha256 = sha256;
+      inherit sha256;
     };
 
   linkblobs =
@@ -40,8 +39,7 @@ in
 runCommand "ollama-model-${model}-${tag}"
   {
     meta = {
-      model = model;
-      tag = tag;
+      inherit model tag;
       homepage = "https://ollama.com/library/${model}:${tag}";
       platforms = lib.platforms.all;
     };

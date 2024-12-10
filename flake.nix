@@ -6,9 +6,9 @@
   };
 
   outputs =
-    { self, nixpkgs }:
+    { nixpkgs, ... }:
     let
-      lib = nixpkgs.lib;
+      inherit (nixpkgs) lib;
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
@@ -22,7 +22,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          callPackage = pkgs.callPackage;
+          inherit (pkgs) callPackage;
           modelTags =
             model: builtins.attrNames (builtins.readDir ./manifests/registry.ollama.ai/library/${model});
           mkModel = model: tag: callPackage ./model.nix { inherit model tag; };
@@ -30,7 +30,9 @@
             model:
             (mkModel model "latest")
             // (lib.genAttrs (modelTags model) (mkModel model))
-            // ({ recurseForDerivations = true; });
+            // {
+              recurseForDerivations = true;
+            };
         in
         (builtins.listToAttrs (
           builtins.map (model: {
