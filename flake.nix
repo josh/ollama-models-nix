@@ -23,12 +23,16 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           callPackage = pkgs.callPackage;
+          mkModel = model: tag: callPackage ./model.nix { inherit model tag; };
+          mkModelCollection =
+            model: tags:
+            (mkModel model "latest")
+            // (lib.genAttrs tags (mkModel model))
+            // ({ recurseForDerivations = true; });
         in
         (lib.attrsets.mapAttrs' (model: tags: {
           name = lib.strings.replaceStrings [ "." ] [ "_" ] model;
-          value = callPackage ./model-collection.nix {
-            inherit model tags;
-          };
+          value = mkModelCollection model tags;
         }) models)
         // {
           update-manifests = callPackage ./update.nix { };
