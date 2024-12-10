@@ -25,8 +25,11 @@ jobs:
       - name: Add new manifest
         if: ${{ github.event.inputs.model != '' && github.event.inputs.tag != '' }}
         run: |
-          mkdir -p "manifests/registry.ollama.ai/library/${github.event.inputs.model}"
-          touch "manifests/registry.ollama.ai/library/${github.event.inputs.model}/${github.event.inputs.tag}"
+          mkdir -p "manifests/registry.ollama.ai/library/$OLLAMA_MODEL"
+          touch "manifests/registry.ollama.ai/library/$OLLAMA_MODEL/$OLLAMA_TAG"
+        env:
+          OLLAMA_MODEL: ${{ github.event.inputs.model }}
+          OLLAMA_TAG: ${{ github.event.inputs.tag }}
 
       - name: Update manifests
         run: ./update-manifests.bash
