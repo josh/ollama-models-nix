@@ -49,6 +49,16 @@
             ];
             text = ''exec ${./update-manifests.bash} "$@"'';
           };
+          discover-manifests = pkgs.writeShellApplication {
+            name = "discover-manifests";
+            runtimeInputs = with pkgs; [
+              bash
+              coreutils
+              curl
+              htmlq
+            ];
+            text = ''exec ${./discover-manifests.bash} "$@"'';
+          };
         }
       );
     };
