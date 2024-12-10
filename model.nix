@@ -1,6 +1,7 @@
 {
   lib,
   callPackage,
+  fetchurl,
   runCommand,
   registry ? "registry.ollama.ai",
   model,
@@ -10,17 +11,27 @@
 let
   manifest = builtins.fromJSON (builtins.readFile manifestPath);
 
+  fetchblob =
+    { model, sha256 }:
+    fetchurl {
+      name = "sha256-${sha256}";
+      url = "https://${registry}/v2/library/${model}/blobs/sha256:${sha256}";
+      curlOptsList = [
+        "--header"
+        "Accept: application/vnd.docker.distribution.manifest.v2+json"
+      ];
+      sha256 = sha256;
+    };
+
   linkBlobs =
     blobs:
     builtins.map (
       blob:
       let
         sha256 = lib.strings.removePrefix "sha256:" blob.digest;
-        file = callPackage ./blob.nix {
-          inherit registry model sha256;
-        };
+        file = fetchblob { inherit model sha256; };
       in
-      ''ln -s ${file} $out/blobs/sha256-${sha256}''
+      ''ln -s ${file} $out/blobs/${file.meta.name}''
     ) blobs;
 
   blobs = linkBlobs ([ manifest.config ] ++ manifest.layers);
