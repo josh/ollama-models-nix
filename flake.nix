@@ -22,10 +22,9 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          inherit (pkgs) callPackage;
           modelTags =
             model: builtins.attrNames (builtins.readDir ./manifests/registry.ollama.ai/library/${model});
-          mkModel = model: tag: callPackage ./model.nix { inherit model tag; };
+          mkModel = model: tag: pkgs.callPackage ./model.nix { inherit model tag; };
           mkModelCollection =
             model:
             (mkModel model "latest")
@@ -41,7 +40,15 @@
           }) models
         ))
         // {
-          update-manifests = callPackage ./update.nix { };
+          update-manifests = pkgs.writeShellApplication {
+            name = "update-manifests";
+            runtimeInputs = with pkgs; [
+              bash
+              coreutils
+              curl
+            ];
+            text = ''exec ${./update-manifests.bash} "$@"'';
+          };
         }
       );
     };
