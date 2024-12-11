@@ -1,1 +1,31 @@
-{"schemaVersion":2,"mediaType":"application/vnd.docker.distribution.manifest.v2+json","config":{"mediaType":"application/vnd.docker.container.image.v1+json","digest":"sha256:9ac00f0124a2c7b8d381190978acc1e14f15ffe13e4e9a8b9021e0a33003247c","size":488},"layers":[{"mediaType":"application/vnd.ollama.image.model","digest":"sha256:8735cf47db8735ff50aac338e7dff79c8df2d4afb3240d54a6a5df2ff7815aa3","size":352152352},{"mediaType":"application/vnd.ollama.image.license","digest":"sha256:94baea11f7886727eb77b3fcce6cdcc861cf07e773414328e6688cab85af63d4","size":13468},{"mediaType":"application/vnd.ollama.image.template","digest":"sha256:60ed67c565f89a3cd5dfa4a142270b88a1f7e9b6e6de416e9961b1ccfcaec360","size":506},{"mediaType":"application/vnd.ollama.image.params","digest":"sha256:f02dd72bb2423204352eabc5637b44d79d17f109fdb510a7c51455892aa2d216","size":59}]}
+{
+  "config": {
+    "digest": "sha256:9ac00f0124a2c7b8d381190978acc1e14f15ffe13e4e9a8b9021e0a33003247c",
+    "mediaType": "application/vnd.docker.container.image.v1+json",
+    "size": 488
+  },
+  "layers": [
+    {
+      "digest": "sha256:8735cf47db8735ff50aac338e7dff79c8df2d4afb3240d54a6a5df2ff7815aa3",
+      "mediaType": "application/vnd.ollama.image.model",
+      "size": 352152352
+    },
+    {
+      "digest": "sha256:94baea11f7886727eb77b3fcce6cdcc861cf07e773414328e6688cab85af63d4",
+      "mediaType": "application/vnd.ollama.image.license",
+      "size": 13468
+    },
+    {
+      "digest": "sha256:60ed67c565f89a3cd5dfa4a142270b88a1f7e9b6e6de416e9961b1ccfcaec360",
+      "mediaType": "application/vnd.ollama.image.template",
+      "size": 506
+    },
+    {
+      "digest": "sha256:f02dd72bb2423204352eabc5637b44d79d17f109fdb510a7c51455892aa2d216",
+      "mediaType": "application/vnd.ollama.image.params",
+      "size": 59
+    }
+  ],
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "schemaVersion": 2
+}

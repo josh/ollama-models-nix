@@ -1,1 +1,26 @@
-{"schemaVersion":2,"mediaType":"application/vnd.docker.distribution.manifest.v2+json","config":{"mediaType":"application/vnd.docker.container.image.v1+json","digest":"sha256:0f27b88821556142b4eac8ed9204050bdcad2142e22f385fc7fe4bce54b965c2","size":382},"layers":[{"mediaType":"application/vnd.ollama.image.model","digest":"sha256:06de597291b824c541015ba9d759cbcd915bccdb48a7217066562b4f38501282","size":18355967392},{"mediaType":"application/vnd.ollama.image.template","digest":"sha256:b1571c5cbd28576136449e2fe27b3a4375d861a9c77696d1bb2ba49d2ead80cb","size":45},{"mediaType":"application/vnd.ollama.image.params","digest":"sha256:d14264189a8aef72eb89b322adc7380afcda48b8815e37d0459736a26cb1434e","size":31}]}
+{
+  "config": {
+    "digest": "sha256:0f27b88821556142b4eac8ed9204050bdcad2142e22f385fc7fe4bce54b965c2",
+    "mediaType": "application/vnd.docker.container.image.v1+json",
+    "size": 382
+  },
+  "layers": [
+    {
+      "digest": "sha256:06de597291b824c541015ba9d759cbcd915bccdb48a7217066562b4f38501282",
+      "mediaType": "application/vnd.ollama.image.model",
+      "size": 18355967392
+    },
+    {
+      "digest": "sha256:b1571c5cbd28576136449e2fe27b3a4375d861a9c77696d1bb2ba49d2ead80cb",
+      "mediaType": "application/vnd.ollama.image.template",
+      "size": 45
+    },
+    {
+      "digest": "sha256:d14264189a8aef72eb89b322adc7380afcda48b8815e37d0459736a26cb1434e",
+      "mediaType": "application/vnd.ollama.image.params",
+      "size": 31
+    }
+  ],
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "schemaVersion": 2
+}

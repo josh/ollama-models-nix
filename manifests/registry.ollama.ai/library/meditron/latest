@@ -1,1 +1,36 @@
-{"schemaVersion":2,"mediaType":"application/vnd.docker.distribution.manifest.v2+json","config":{"mediaType":"application/vnd.docker.container.image.v1+json","digest":"sha256:25481b76a226bb32d07b08b869a4e92650731b0f9d26c14fd83b2132eca2b9a6","size":455},"layers":[{"mediaType":"application/vnd.ollama.image.model","digest":"sha256:ca7d20b78b4a51111bb532a88e450512de046adfb566b2c188a26e4ac866393d","size":3825807072},{"mediaType":"application/vnd.ollama.image.template","digest":"sha256:a47b02e00552cd7022ea700b1abf8c572bb26c9bc8c1a37e01b566f2344df5dc","size":106},{"mediaType":"application/vnd.ollama.image.system","digest":"sha256:e3d94d483bb9f76c701a17107764a3387bcc7d5332e124f04693886cc0fad7eb","size":155},{"mediaType":"application/vnd.ollama.image.params","digest":"sha256:6ee262b642769e03cf7062ef702d205ca9c7acfe2f424d547a21323b303b6447","size":74},{"mediaType":"application/vnd.docker.container.image.v1+json","digest":"sha256:25481b76a226bb32d07b08b869a4e92650731b0f9d26c14fd83b2132eca2b9a6","size":455}]}
+{
+  "config": {
+    "digest": "sha256:25481b76a226bb32d07b08b869a4e92650731b0f9d26c14fd83b2132eca2b9a6",
+    "mediaType": "application/vnd.docker.container.image.v1+json",
+    "size": 455
+  },
+  "layers": [
+    {
+      "digest": "sha256:ca7d20b78b4a51111bb532a88e450512de046adfb566b2c188a26e4ac866393d",
+      "mediaType": "application/vnd.ollama.image.model",
+      "size": 3825807072
+    },
+    {
+      "digest": "sha256:a47b02e00552cd7022ea700b1abf8c572bb26c9bc8c1a37e01b566f2344df5dc",
+      "mediaType": "application/vnd.ollama.image.template",
+      "size": 106
+    },
+    {
+      "digest": "sha256:e3d94d483bb9f76c701a17107764a3387bcc7d5332e124f04693886cc0fad7eb",
+      "mediaType": "application/vnd.ollama.image.system",
+      "size": 155
+    },
+    {
+      "digest": "sha256:6ee262b642769e03cf7062ef702d205ca9c7acfe2f424d547a21323b303b6447",
+      "mediaType": "application/vnd.ollama.image.params",
+      "size": 74
+    },
+    {
+      "digest": "sha256:25481b76a226bb32d07b08b869a4e92650731b0f9d26c14fd83b2132eca2b9a6",
+      "mediaType": "application/vnd.docker.container.image.v1+json",
+      "size": 455
+    }
+  ],
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "schemaVersion": 2
+}

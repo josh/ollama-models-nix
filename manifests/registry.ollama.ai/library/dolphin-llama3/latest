@@ -1,1 +1,36 @@
-{"schemaVersion":2,"mediaType":"application/vnd.docker.distribution.manifest.v2+json","config":{"mediaType":"application/vnd.docker.container.image.v1+json","digest":"sha256:312e64921670f02288bc08952b727152c770f69e837d320f2e031832d7742e70","size":557},"layers":[{"mediaType":"application/vnd.ollama.image.model","digest":"sha256:ea025c107c1c3e5a87380b25e205db3b19a4d2ed56f1954f531573a963621580","size":4661222752},{"mediaType":"application/vnd.ollama.image.license","digest":"sha256:4fa551d4f938f68b8c1e6afa9d28befb70e3f33f75d0753248d530364aeea40f","size":12403},{"mediaType":"application/vnd.ollama.image.template","digest":"sha256:62fbfd9ed093d6e5ac83190c86eec5369317919f4b149598d2dbb38900e9faef","size":182},{"mediaType":"application/vnd.ollama.image.system","digest":"sha256:9640c2212a51f7df5840f7929448afa17cb33fbb173cf15e1d74883e932a3466","size":41},{"mediaType":"application/vnd.ollama.image.params","digest":"sha256:f02dd72bb2423204352eabc5637b44d79d17f109fdb510a7c51455892aa2d216","size":59}]}
+{
+  "config": {
+    "digest": "sha256:312e64921670f02288bc08952b727152c770f69e837d320f2e031832d7742e70",
+    "mediaType": "application/vnd.docker.container.image.v1+json",
+    "size": 557
+  },
+  "layers": [
+    {
+      "digest": "sha256:ea025c107c1c3e5a87380b25e205db3b19a4d2ed56f1954f531573a963621580",
+      "mediaType": "application/vnd.ollama.image.model",
+      "size": 4661222752
+    },
+    {
+      "digest": "sha256:4fa551d4f938f68b8c1e6afa9d28befb70e3f33f75d0753248d530364aeea40f",
+      "mediaType": "application/vnd.ollama.image.license",
+      "size": 12403
+    },
+    {
+      "digest": "sha256:62fbfd9ed093d6e5ac83190c86eec5369317919f4b149598d2dbb38900e9faef",
+      "mediaType": "application/vnd.ollama.image.template",
+      "size": 182
+    },
+    {
+      "digest": "sha256:9640c2212a51f7df5840f7929448afa17cb33fbb173cf15e1d74883e932a3466",
+      "mediaType": "application/vnd.ollama.image.system",
+      "size": 41
+    },
+    {
+      "digest": "sha256:f02dd72bb2423204352eabc5637b44d79d17f109fdb510a7c51455892aa2d216",
+      "mediaType": "application/vnd.ollama.image.params",
+      "size": 59
+    }
+  ],
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "schemaVersion": 2
+}
