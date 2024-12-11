@@ -17,6 +17,8 @@ pull() {
 		"https://registry.ollama.ai/v2/library/$model/manifests/$tag" \
 		--create-dirs \
 		--output "$output"
+	jq --sort-keys <"$output" >"${output}~"
+	mv "${output}~" "$output"
 }
 
 pull_all() {

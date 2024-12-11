@@ -60,6 +60,7 @@
               bash
               coreutils
               curl
+              jq
             ];
             text = ''exec ${./update-manifests.bash} "$@"'';
           };
