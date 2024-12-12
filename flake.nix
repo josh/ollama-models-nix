@@ -17,8 +17,6 @@
       ];
     in
     {
-      lib = import ./lib.nix { inherit lib; };
-
       overlays.default = import ./overlay.nix;
 
       packages = lib.genAttrs systems (

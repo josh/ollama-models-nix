@@ -6,9 +6,19 @@
   modelNamespace ? "library",
   model,
   tag ? "latest",
-  manifestPath ? ./manifests/${registry}/${modelNamespace}/${model}/${tag},
 }:
 let
+  modelPath = ./manifests/${registry}/${modelNamespace}/${model};
+
+  fallbackTag = builtins.head (builtins.attrNames (builtins.readDir modelPath));
+  tagExists = builtins.pathExists "${modelPath}/${tag}";
+  tag' =
+    if tag == "latest" && !tagExists then
+      (lib.trivial.warn "${model}:latest not found, using ${model}:${fallbackTag}" fallbackTag)
+    else
+      tag;
+
+  manifestPath = ./manifests/${registry}/${modelNamespace}/${model}/${tag'};
   manifest = builtins.fromJSON (builtins.readFile manifestPath);
 
   fetchblob =
@@ -33,16 +43,17 @@ let
   blobs = linkblobs ([ manifest.config ] ++ manifest.layers);
 in
 
-runCommand "ollama-model-${model}-${tag}"
+runCommand "ollama-model-${model}-${tag'}"
   {
     meta = {
-      inherit model tag;
-      homepage = "https://ollama.com/library/${model}:${tag}";
+      inherit model;
+      tag = tag';
+      homepage = "https://ollama.com/library/${model}:${tag'}";
       platforms = lib.platforms.all;
     };
   }
   ''
     mkdir -p $out/manifests/${registry}/${modelNamespace}/${model} $out/blobs
-    cp ${manifestPath} $out/manifests/${registry}/${modelNamespace}/${model}/${tag}
+    cp ${manifestPath} $out/manifests/${registry}/${modelNamespace}/${model}/${tag'}
     ${builtins.concatStringsSep "\n" blobs}
   ''

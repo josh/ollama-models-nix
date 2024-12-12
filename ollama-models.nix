@@ -3,13 +3,13 @@
   callPackage,
 }:
 let
-  lib' = import ./lib.nix { inherit lib; };
+  modelNames = builtins.attrNames (builtins.readDir ./manifests/registry.ollama.ai/library);
 
   mkModelCollection =
     model:
     let
-      tags = lib'.readTags model;
-      firstTag = builtins.head tags;
+      modelPath = ./manifests/registry.ollama.ai/library/${model};
+      tags = builtins.attrNames (builtins.readDir modelPath);
       mkModel =
         tag:
         callPackage ./ollama-model.nix {
@@ -19,7 +19,7 @@ let
     {
       name = lib.strings.replaceStrings [ "." ] [ "_" ] model;
       value =
-        (mkModel firstTag)
+        (mkModel "latest")
         // (lib.genAttrs tags mkModel)
         // {
           recurseForDerivations = true;
@@ -28,4 +28,4 @@ let
 
 in
 
-builtins.listToAttrs (builtins.map mkModelCollection lib'.modelNames)
+builtins.listToAttrs (builtins.map mkModelCollection modelNames)
