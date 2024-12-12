@@ -15,44 +15,17 @@
         "x86_64-darwin"
         "x86_64-linux"
       ];
-
-      models = builtins.attrNames (builtins.readDir ./manifests/registry.ollama.ai/library);
-      orderTags =
-        tags:
-        let
-          hasLatest = (lib.lists.findFirstIndex (tag: tag == "latest") null tags) != null;
-          withoutLatest = lib.lists.remove "latest" tags;
-        in
-        if hasLatest then ([ "latest" ] ++ withoutLatest) else tags;
-      modelTags =
-        model:
-        orderTags (builtins.attrNames (builtins.readDir ./manifests/registry.ollama.ai/library/${model}));
     in
     {
       packages = lib.genAttrs systems (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          mkModel = model: tag: pkgs.callPackage ./ollama-model.nix { inherit model tag; };
-          mkModelCollection =
-            model:
-            let
-              tags = modelTags model;
-              firstTag = builtins.head tags;
-              mkModel' = mkModel model;
-            in
-            (mkModel' firstTag)
-            // (lib.genAttrs tags mkModel')
-            // {
-              recurseForDerivations = true;
-            };
         in
-        (builtins.listToAttrs (
-          builtins.map (model: {
-            name = lib.strings.replaceStrings [ "." ] [ "_" ] model;
-            value = mkModelCollection model;
-          }) models
-        ))
+        (import ./ollama-models.nix {
+          lib = lib;
+          callPackage = pkgs.callPackage;
+        })
         // {
           update-manifests = pkgs.writeShellApplication {
             name = "update-manifests";
