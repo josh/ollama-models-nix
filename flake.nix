@@ -54,5 +54,24 @@
           };
         }
       );
+
+      checks = lib.genAttrs systems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
+          tiny-models = [
+            "nomic-embed-text"
+            "qwen2:0.5b"
+          ];
+        in
+        {
+          packages-models = self.packages.${system}.default.override {
+            models = tiny-models;
+          };
+          overlay-models = pkgs.ollama-models.override {
+            models = tiny-models;
+          };
+        }
+      );
     };
 }
