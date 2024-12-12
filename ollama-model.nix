@@ -3,9 +3,10 @@
   fetchurl,
   runCommand,
   registry ? "registry.ollama.ai",
+  modelNamespace ? "library",
   model,
   tag ? "latest",
-  manifestPath ? ./manifests/${registry}/library/${model}/${tag},
+  manifestPath ? ./manifests/${registry}/${modelNamespace}/${model}/${tag},
 }:
 let
   manifest = builtins.fromJSON (builtins.readFile manifestPath);
@@ -14,11 +15,7 @@ let
     { model, sha256 }:
     fetchurl {
       name = "sha256-${sha256}";
-      url = "https://${registry}/v2/library/${model}/blobs/sha256:${sha256}";
-      curlOptsList = [
-        "--header"
-        "Accept: application/vnd.docker.distribution.manifest.v2+json"
-      ];
+      url = "https://${registry}/v2/${modelNamespace}/${model}/blobs/sha256:${sha256}";
       inherit sha256;
     };
 
@@ -45,7 +42,7 @@ runCommand "ollama-model-${model}-${tag}"
     };
   }
   ''
-    mkdir -p $out/manifests/${registry}/library/${model} $out/blobs
-    cp ${manifestPath} $out/manifests/${registry}/library/${model}/${tag}
+    mkdir -p $out/manifests/${registry}/${modelNamespace}/${model} $out/blobs
+    cp ${manifestPath} $out/manifests/${registry}/${modelNamespace}/${model}/${tag}
     ${builtins.concatStringsSep "\n" blobs}
   ''
