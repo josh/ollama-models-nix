@@ -5,8 +5,6 @@
   models ? [ ],
 }:
 let
-  # Look up a model by string name like "llama3.2", "llama3.2:latest", "llama3.2:8b"
-  # Look up a model by string name like "llama3.2", "llama3.2:latest", "llama3.2:8b"
   lookupModel =
     model:
     if lib.attrsets.isDerivation model then
