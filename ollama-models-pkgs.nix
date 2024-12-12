@@ -9,7 +9,9 @@ let
     model:
     let
       modelPath = ./manifests/registry.ollama.ai/library/${model};
-      tags = builtins.map (lib.strings.removeSuffix ".json") (builtins.attrNames (builtins.readDir modelPath));
+      tags = builtins.map (lib.strings.removeSuffix ".json") (
+        builtins.attrNames (builtins.readDir modelPath)
+      );
       mkModel =
         tag:
         callPackage ./ollama-model.nix {
