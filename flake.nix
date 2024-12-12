@@ -33,7 +33,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          mkModel = model: tag: pkgs.callPackage ./model.nix { inherit model tag; };
+          mkModel = model: tag: pkgs.callPackage ./ollama-model.nix { inherit model tag; };
           mkModelCollection =
             model:
             let
