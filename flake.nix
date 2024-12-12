@@ -29,7 +29,11 @@
           callPackage = pkgs.callPackage;
         })
         // {
-          default = pkgs.callPackage ./ollama-models-dir.nix { };
+          default = self.packages.${system}.models;
+
+          models = pkgs.callPackage ./ollama-models-dir.nix { };
+          ollama = pkgs.callPackage ./ollama.nix { };
+
           update-manifests = pkgs.writeShellApplication {
             name = "update-manifests";
             runtimeInputs = with pkgs; [
@@ -63,10 +67,13 @@
           ];
         in
         {
-          packages-models = self.packages.${system}.default.override {
+          packages-models = self.packages.${system}.models.override {
             models = tiny-models;
           };
           overlay-models = pkgs.ollama-models.override {
+            models = tiny-models;
+          };
+          packages-ollama = self.packages.${system}.ollama.override {
             models = tiny-models;
           };
         }

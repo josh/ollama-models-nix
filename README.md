@@ -20,7 +20,7 @@ let
 in
 pkgs.symlinkJoin {
   name = "ollama-models";
-  paths = with pkgs.ollama-models; [ llama3_1 llama3_2 ];
+  paths = with pkgs.ollama-models; [ llama3_1 llama3_2."3b" ];
 }
 ```
 
@@ -34,6 +34,18 @@ let
   };
 in
 pkgs.ollama-models.override {
+  models = [ "llama3.1" "llama3.2:3b" ];
+}
+```
+
+An `ollama` wrapper can also be generated pre-configured with your models directory.
+
+```nix
+let
+  system = builtins.currentSystem;
+  ollama-models-flake = builtins.getFlake "github:josh/ollama-models-nix";
+in
+ollama-models-flake.packages.${system}.ollama.override {
   models = [ "llama3.1" "llama3.2:3b" ];
 }
 ```
