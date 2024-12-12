@@ -25,8 +25,8 @@
           pkgs = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
         in
         (import ./ollama-models-pkgs.nix {
-          lib = lib;
-          callPackage = pkgs.callPackage;
+          inherit lib;
+          inherit (pkgs) callPackage;
         })
         // {
           default = self.packages.${system}.models;

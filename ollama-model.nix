@@ -22,8 +22,7 @@ let
       }
     else
       {
-        model = model;
-        tag = tag;
+        inherit model tag;
       };
 
   qualifiedModel = "${modelNamespace}/${meta.model}";

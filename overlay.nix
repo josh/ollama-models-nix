@@ -1,8 +1,7 @@
-final: prev:
+final: _prev:
 let
   models = import ./ollama-models-pkgs.nix {
-    lib = final.lib;
-    callPackage = final.callPackage;
+    inherit (final) lib callPackage;
   };
   model-dir = final.callPackage ./ollama-models-dir.nix { };
 in
