@@ -8,4 +8,5 @@ let
 in
 {
   ollama-models = model-dir // models;
+  ollama-models-wrapped = final.callPackage ./ollama.nix { };
 }
