@@ -13,12 +13,15 @@ Multiple models can easily be merged into a single directory using [nixpkgs](htt
 
 ```nix
 let
-  system = builtins.currentSystem;
-  pkgs = import <nixpkgs> { system = system; };
-  ollama-models = (builtins.getFlake "github:josh/ollama-models-nix").packages.${system};
+  ollama-models-flake = builtins.getFlake "github:josh/ollama-models-nix";
+  pkgs = import <nixpkgs> {
+    overlays = [
+      ollama-models-flake.overlays.default
+    ];
+  };
 in
 pkgs.symlinkJoin {
   name = "ollama-models";
-  paths = with ollama-models; [ llama3_1 llama3_2 ];
+  paths = with pkgs.ollama-models; [ llama3_1 llama3_2 ];
 }
 ```

@@ -6,7 +6,7 @@
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { self, nixpkgs }:
     let
       inherit (nixpkgs) lib;
       systems = [
@@ -17,15 +17,14 @@
       ];
     in
     {
+      overlays.default = import ./overlay.nix;
+
       packages = lib.genAttrs systems (
         system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
         in
-        (import ./ollama-models.nix {
-          lib = lib;
-          callPackage = pkgs.callPackage;
-        })
+        pkgs.ollama-models
         // {
           update-manifests = pkgs.writeShellApplication {
             name = "update-manifests";
