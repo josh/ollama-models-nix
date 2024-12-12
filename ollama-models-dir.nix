@@ -5,22 +5,14 @@
   models ? [ ],
 }:
 let
-  lookupModel =
+  mkModel =
     model:
     if lib.attrsets.isDerivation model then
       model
     else
-      let
-        parts = lib.strings.splitString ":" model;
-        len = builtins.length parts;
-      in
-      callPackage ./ollama-model.nix {
-        model = builtins.elemAt parts 0;
-        tag = if len == 2 then (builtins.elemAt parts 1) else "latest";
-      };
-
+      callPackage ./ollama-model.nix { inherit model; };
 in
 symlinkJoin {
   name = "ollama-models";
-  paths = builtins.map lookupModel models;
+  paths = builtins.map mkModel models;
 }
