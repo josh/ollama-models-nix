@@ -1,6 +1,6 @@
 final: prev:
 let
-  models = import ./ollama-models.nix {
+  models = import ./ollama-models-pkgs.nix {
     lib = final.lib;
     callPackage = final.callPackage;
   };

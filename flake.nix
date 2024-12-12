@@ -24,7 +24,7 @@
         let
           pkgs = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
         in
-        (import ./ollama-models.nix {
+        (import ./ollama-models-pkgs.nix {
           lib = lib;
           callPackage = pkgs.callPackage;
         })
