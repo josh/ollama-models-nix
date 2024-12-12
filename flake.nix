@@ -17,6 +17,8 @@
       ];
     in
     {
+      lib = import ./lib.nix { inherit lib; };
+
       overlays.default = import ./overlay.nix;
 
       packages = lib.genAttrs systems (
@@ -24,8 +26,12 @@
         let
           pkgs = nixpkgs.legacyPackages.${system}.extend self.overlays.default;
         in
-        pkgs.ollama-models
+        (import ./ollama-models.nix {
+          lib = lib;
+          callPackage = pkgs.callPackage;
+        })
         // {
+          default = pkgs.callPackage ./ollama-models-dir.nix { };
           update-manifests = pkgs.writeShellApplication {
             name = "update-manifests";
             runtimeInputs = with pkgs; [
