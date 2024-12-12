@@ -21,6 +21,6 @@ tags() {
 for model in $(models); do
 	mkdir -p "manifests/registry.ollama.ai/library/$model"
 	for tag in $(tags "$model"); do
-		touch "manifests/registry.ollama.ai/library/$model/$tag"
+		touch "manifests/registry.ollama.ai/library/$model/$tag.json"
 	done
 done

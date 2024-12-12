@@ -24,8 +24,8 @@ pull() {
 pull_all() {
 	for model_path in "./manifests/registry.ollama.ai/library/"*; do
 		model=$(basename "$model_path")
-		for tag_path in "$model_path"/*; do
-			tag=$(basename "$tag_path")
+		for tag_path in "$model_path"/*.json; do
+			tag=$(basename "$tag_path" ".json")
 			pull "$model" "$tag" "$tag_path"
 		done
 	done
@@ -35,7 +35,7 @@ MODEL="${1:-}"
 TAG="${2:-latest}"
 
 if [ -n "$MODEL" ]; then
-	pull "$MODEL" "$TAG" "./manifests/registry.ollama.ai/library/$MODEL/$TAG"
+	pull "$MODEL" "$TAG" "./manifests/registry.ollama.ai/library/$MODEL/$TAG.json"
 else
 	pull_all
 fi

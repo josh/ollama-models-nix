@@ -32,7 +32,7 @@ let
 
   id = validateModelTag { inherit model tag; };
 
-  manifestPath = ./manifests/${registry}/${modelNamespace}/${id.model}/${id.tag};
+  manifestPath = ./manifests/${registry}/${modelNamespace}/${id.model}/${id.tag}.json;
   manifest = builtins.fromJSON (builtins.readFile manifestPath);
 
   fetchblob =
