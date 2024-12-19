@@ -51,6 +51,7 @@
               coreutils
               curl
               htmlq
+              self.packages.${system}.update-manifests
             ];
             text = ''exec ${./discover-manifests.bash} "$@"'';
           };
