@@ -22,6 +22,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Add new manifest
         if: ${{ github.event.inputs.model != '' && github.event.inputs.tag != '' }}
