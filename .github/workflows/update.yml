@@ -25,6 +25,11 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
 
+      - name: Install htmlq
+        run: |
+          wget https://github.com/mgdm/htmlq/releases/download/v0.4.0/htmlq-x86_64-linux.tar.gz -O htmlq.tar.gz
+          tar -xf htmlq.tar.gz
+
       - name: Add new manifest
         if: ${{ github.event.inputs.model != '' && github.event.inputs.tag != '' }}
         run: |
@@ -36,7 +41,7 @@ jobs:
           OLLAMA_TAG: ${{ github.event.inputs.tag }}
 
       - name: Update manifests
-        run: ./update-manifests.bash
+        run: PATH="$(pwd):$PATH" ./update-manifests.bash
 
       - name: Commit changes
         id: commit
