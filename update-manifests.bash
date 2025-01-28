@@ -46,6 +46,7 @@ pull_all() {
     model=$(basename "$model_path")
     for tag_path in "$model_path"/*.json; do
       tag=$(basename "$tag_path" ".json")
+      [ "$tag" = "*" ] && continue
       pull "$model" "$tag" "$tag_path"
     done
   done
