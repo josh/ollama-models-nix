@@ -40,20 +40,10 @@
               bash
               coreutils
               curl
+              htmlq
               jq
             ];
             text = ''exec ${./update-manifests.bash} "$@"'';
-          };
-          discover-manifests = pkgs.writeShellApplication {
-            name = "discover-manifests";
-            runtimeInputs = with pkgs; [
-              bash
-              coreutils
-              curl
-              htmlq
-              self.packages.${system}.update-manifests
-            ];
-            text = ''exec ${./discover-manifests.bash} "$@"'';
           };
         }
       );
