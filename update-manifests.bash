@@ -62,6 +62,7 @@ discover() {
       if ! pull "$model" "$tag" "./manifests/registry.ollama.ai/library/$model/$tag.json"; then
         echo "Failed to update $model:$tag" >&2
         rm -f "manifests/registry.ollama.ai/library/$model/$tag.json"
+        rmdir "manifests/registry.ollama.ai/library/$model" 2>/dev/null || true
       else
         echo "Added $model:$tag" >&2
       fi
