@@ -41,35 +41,14 @@ pull() {
   mv "${output}~" "$output"
 }
 
-pull_all() {
-  for model_path in "./manifests/registry.ollama.ai/library/"*; do
-    model=$(basename "$model_path")
-    for tag_path in "$model_path"/*.json; do
-      tag=$(basename "$tag_path" ".json")
-      [ "$tag" = "*" ] && continue
-      pull "$model" "$tag" "$tag_path"
-    done
+for model in $(models); do
+  mkdir -p "manifests/registry.ollama.ai/library/$model"
+  for tag in $(tags "$model"); do
+    touch "manifests/registry.ollama.ai/library/$model/$tag.json"
+    if ! pull "$model" "$tag" "./manifests/registry.ollama.ai/library/$model/$tag.json"; then
+      echo "Failed to update $model:$tag" >&2
+      rm -f "manifests/registry.ollama.ai/library/$model/$tag.json"
+      rmdir "manifests/registry.ollama.ai/library/$model" 2>/dev/null || true
+    fi
   done
-}
-
-discover() {
-  for model in $(models); do
-    mkdir -p "manifests/registry.ollama.ai/library/$model"
-    for tag in $(tags "$model"); do
-      if [ -f "manifests/registry.ollama.ai/library/$model/$tag.json" ]; then
-        continue
-      fi
-      touch "manifests/registry.ollama.ai/library/$model/$tag.json"
-      if ! pull "$model" "$tag" "./manifests/registry.ollama.ai/library/$model/$tag.json"; then
-        echo "Failed to update $model:$tag" >&2
-        rm -f "manifests/registry.ollama.ai/library/$model/$tag.json"
-        rmdir "manifests/registry.ollama.ai/library/$model" 2>/dev/null || true
-      else
-        echo "Added $model:$tag" >&2
-      fi
-    done
-  done
-}
-
-discover
-pull_all
+done
