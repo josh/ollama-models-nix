@@ -12,8 +12,14 @@ models() {
     sed 's/^\/library\///'
 }
 
+model_has_latest_tag() {
+  [ "$1" != "wizardlm" ]
+}
+
 tags() {
-  echo "latest"
+  if model_has_latest_tag "$1"; then
+    echo "latest"
+  fi
   echo "$HTML" |
     htmlq "a[href=\"/library/$1\"] > div:nth-child(2) > div:nth-child(1) > span.text-blue-600" --text
 }
@@ -25,6 +31,9 @@ for model in $(models); do
       continue
     fi
     touch "manifests/registry.ollama.ai/library/$model/$tag.json"
-    update-manifests "$model" "$tag"
+    if ! update-manifests "$model" "$tag"; then
+      echo "Failed to update $model:$tag" >&2
+      rm -f "manifests/registry.ollama.ai/library/$model/$tag.json"
+    fi
   done
 done
