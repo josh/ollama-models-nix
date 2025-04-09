@@ -16,10 +16,8 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
-
       - uses: DeterminateSystems/nix-installer-action@main
 
       - name: Check flake
         run: |
-          nix flake check --print-build-logs
+          nix flake check --keep-going --print-build-logs github:${{ github.repository }}/${{ github.sha }}
