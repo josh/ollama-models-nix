@@ -1,30 +1,27 @@
 {
   "config": {
-    "digest": "sha256:5228822c05702a896f2753e70679a2b0a7f465e0348b830d3702da3c572c2c6d",
+    "digest": "sha256:1506fb8a72846f147af74cb2c91f0a266f75f3d9e9be94605aa40b4b7da513c3",
     "mediaType": "application/vnd.docker.container.image.v1+json",
     "size": 564
   },
   "layers": [
     {
-      "digest": "sha256:7633fdffe14c0f7acc115402376be5bd6052220c348676c5133dc011b35e2429",
+      "digest": "sha256:9999d473417a8e179d993498195be5f42cab963acc75f4a6b15d981e8b68abed",
       "mediaType": "application/vnd.ollama.image.model",
-      "size": 8077970976
+      "size": 7816574592
     },
     {
       "digest": "sha256:715415638c9c4c0cb2b78783da041b97bd1205f8b9f9494bd7e5a850cb443602",
-      "from": "llama3.2-vision:11b-instruct-fp16",
       "mediaType": "application/vnd.ollama.image.template",
       "size": 269
     },
     {
       "digest": "sha256:d3ed60b917572dd5aa69bf5ff7825f2db00d65e73dc07a43fbc31c60eb31449e",
-      "from": "llama3.2-vision:11b-instruct-fp16",
       "mediaType": "application/vnd.ollama.image.license",
       "size": 6018
     },
     {
       "digest": "sha256:fcc5a6bec9daf9b561a68827b67ab6088e1dba9d1fa2a50d7bbcc8384e0a265d",
-      "from": "llama3.2-vision:11b-instruct-fp16",
       "mediaType": "application/vnd.ollama.image.license",
       "size": 7711
     },
