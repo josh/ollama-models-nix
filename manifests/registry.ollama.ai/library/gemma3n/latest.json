@@ -19,11 +19,6 @@
       "digest": "sha256:1adbfec9dcf025cbf301c072f3847527468dcfa399da7491ee4a1c9e9f1b33e9",
       "mediaType": "application/vnd.ollama.image.license",
       "size": 8363
-    },
-    {
-      "digest": "sha256:ae40a217c1c4002e9358f0f6597a349acaace0cfb95dc53db7ce646d57a56271",
-      "mediaType": "application/vnd.ollama.image.params",
-      "size": 18
     }
   ],
   "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
