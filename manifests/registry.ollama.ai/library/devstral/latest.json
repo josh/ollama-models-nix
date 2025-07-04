@@ -12,10 +12,9 @@
       "size": 14333909728
     },
     {
-      "digest": "sha256:6db27cd4e277c91264572b9c899c1980daa8dea11e902f0070a6f4763f3d13c8",
-      "from": "devstral:latest",
+      "digest": "sha256:ea9ec42474e0b11615d2287c0a4b25f89cd1bd84d034113696dfd6af6ba1ae5d",
       "mediaType": "application/vnd.ollama.image.template",
-      "size": 695
+      "size": 823
     },
     {
       "digest": "sha256:43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
